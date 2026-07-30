@@ -1,439 +1,780 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>B-Side Art Club</title>
-<meta name="description" content="B-Side Art Club — 免費入場、無審查門檻的藝術市集。An alternative art fair. Free entry, no gatekeeping.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Roboto+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: oklch(0.14 0.005 90);
-    --bg-alt: oklch(0.11 0.005 90);
-    --fg: oklch(0.96 0.005 90);
-    --accent: #E5FF00;
-    --accent-hover: #F2FF66;
-    --line: oklch(0.4 0.005 90);
-    --line-soft: oklch(0.35 0.005 90);
-    --muted-1: oklch(0.8 0.01 90);
-    --muted-2: oklch(0.78 0.01 90);
-    --muted-3: oklch(0.75 0.01 90);
-    --muted-4: oklch(0.65 0.01 90);
-    --muted-5: oklch(0.65 0.005 90);
-    --mono: 'Space Mono', monospace;
-    --mono-head: 'Roboto Mono', 'Space Mono', monospace;
-    --mono-head-zh: 'Roboto Mono', 'Noto Sans TC', monospace;
-  }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>B-Side Art Club</title>
+  <meta name="description"
+    content="B-Side Art Club — 免費入場、無審查門檻的藝術市集。An alternative art fair. Free entry, no gatekeeping.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Roboto+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: oklch(0.14 0.005 90);
+      --bg-alt: oklch(0.11 0.005 90);
+      --fg: oklch(0.96 0.005 90);
+      --accent: #E5FF00;
+      --accent-hover: #F2FF66;
+      --line: oklch(0.4 0.005 90);
+      --line-soft: oklch(0.35 0.005 90);
+      --muted-1: oklch(0.8 0.01 90);
+      --muted-2: oklch(0.78 0.01 90);
+      --muted-3: oklch(0.75 0.01 90);
+      --muted-4: oklch(0.65 0.01 90);
+      --muted-5: oklch(0.65 0.005 90);
+      --mono: 'Space Mono', monospace;
+      --mono-head: 'Roboto Mono', 'Space Mono', monospace;
+      --mono-head-zh: 'Roboto Mono', 'Noto Sans TC', monospace;
+    }
 
-  * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-  html, body { margin: 0; padding: 0; }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
-  body {
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--mono);
-    width: 100%;
-    overflow-x: hidden;
-  }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--mono);
+      width: 100%;
+      overflow-x: hidden;
+    }
 
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { color: var(--accent-hover); }
-  ::selection { background: var(--accent); color: var(--bg); }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
 
-  @keyframes bside-marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
+    a:hover {
+      color: var(--accent-hover);
+    }
 
-  .btn {
-    display: inline-block;
-    padding: 16px 28px;
-    font-size: 13px;
-    letter-spacing: 1.5px;
-    font-weight: 700;
-    border: 1px solid var(--fg);
-    color: inherit;
-    background: transparent;
-  }
-  .btn-solid { background: var(--fg); color: var(--bg); border-color: var(--fg); }
-  .btn-accent { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
 
-  /* NAV */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    padding: 18px 32px;
-    background: oklch(0.14 0.005 90 / 0.92);
-    backdrop-filter: blur(4px);
-    border-bottom: 1px solid var(--line);
-  }
-  .nav-logo { font-family: var(--mono-head); font-weight: 700; font-size: 18px; letter-spacing: 0.5px; }
-  .nav-logo span { color: var(--accent); }
-  .nav-links { display: flex; gap: 24px; font-size: 13px; letter-spacing: 1px; }
-  .nav-links a { color: inherit; }
-  .nav-cta { border: 1px solid var(--fg); padding: 8px 16px; font-size: 12px; letter-spacing: 1px; color: inherit; white-space: nowrap; }
+    @keyframes bside-marquee {
+      from {
+        transform: translateX(0);
+      }
 
-  /* HERO */
-  .hero {
-    position: relative;
-    padding: 90px 32px 100px;
-    border-bottom: 1px solid var(--line);
-    background-image: repeating-linear-gradient(0deg, oklch(0.96 0.005 90 / 0.03) 0px, transparent 1px, transparent 3px);
-  }
-  .eyebrow { font-size: 11px; letter-spacing: 3px; color: var(--accent); margin-bottom: 24px; }
-  .hero-title {
-    font-family: var(--mono-head);
-    font-weight: 700;
-    font-size: clamp(52px, 11vw, 160px);
-    line-height: 0.82;
-    letter-spacing: -2px;
-    max-width: 1100px;
-    text-wrap: pretty;
-    margin: 0;
-  }
-  .hero-desc {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px 40px;
-    margin-top: 36px;
-    max-width: 640px;
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--muted-2);
-  }
-  .hero-actions { display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
+      to {
+        transform: translateX(-50%);
+      }
+    }
 
-  /* TICKER */
-  .ticker {
-    background: var(--accent);
-    color: var(--bg);
-    padding: 10px 0;
-    overflow: hidden;
-    white-space: nowrap;
-    border-bottom: 1px solid var(--line);
-  }
-  .ticker-track {
-    display: inline-block;
-    white-space: nowrap;
-    font-family: var(--mono-head);
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 2px;
-    animation: bside-marquee 18s linear infinite;
-  }
+    .btn {
+      display: inline-block;
+      padding: 16px 28px;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      border: 1px solid var(--fg);
+      color: inherit;
+      background: transparent;
+    }
 
-  /* SECTION SHELL */
-  section { padding: 100px 32px; border-bottom: 1px solid var(--line); }
-  .section-label { font-size: 11px; letter-spacing: 3px; color: var(--accent); margin-bottom: 16px; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    .btn-solid {
+      background: var(--fg);
+      color: var(--bg);
+      border-color: var(--fg);
+    }
 
-  /* ABOUT */
-  .about-title {
-    font-family: var(--mono-head);
-    font-weight: 700;
-    font-size: clamp(32px, 4vw, 56px);
-    line-height: 1.02;
-    margin: 0 0 28px;
-    text-wrap: pretty;
-  }
-  .about-body { display: flex; flex-direction: column; gap: 18px; font-size: 15px; line-height: 1.7; color: var(--muted-1); max-width: 520px; }
-  .about-body .highlight { color: var(--fg); font-weight: 700; }
-  .about-images { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-self: start; }
+    .btn-accent {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
 
-  .img-slot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 12px;
-    background: color-mix(in oklch, var(--fg) 6%, transparent);
-    border: 1px dashed var(--line);
-    color: var(--muted-4);
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    line-height: 1.5;
-  }
-  .img-slot--tall { aspect-ratio: 3 / 4; grid-row: span 2; }
-  .img-slot--square { aspect-ratio: 1 / 1; }
+    /* NAV */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 32px;
+      background: oklch(0.14 0.005 90 / 0.92);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid var(--line);
+    }
 
-  /* EVENT */
-  .event-title { font-family: var(--mono-head); font-weight: 700; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.05; margin: 0 0 24px; text-wrap: pretty; }
-  .event-facts { display: grid; grid-template-columns: auto 1fr; gap: 10px 24px; font-size: 14px; margin-bottom: 32px; }
-  .event-facts dt { color: var(--muted-4); letter-spacing: 1px; }
-  .event-facts dd { margin: 0; font-weight: 700; }
-  .event-facts dd.accent { color: var(--accent); }
-  .lineup-label { font-size: 12px; letter-spacing: 2px; color: var(--muted-4); margin-bottom: 16px; }
-  .lineup-box { border: 1px dashed var(--line); padding: 40px 24px; text-align: center; }
-  .lineup-box strong { display: block; font-family: var(--mono-head); font-weight: 700; font-size: 22px; color: var(--accent); }
-  .lineup-box span { display: block; font-size: 13px; color: var(--muted-4); margin-top: 10px; }
+    .nav-logo {
+      font-family: var(--mono-head);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+    }
 
-  /* ARTISTS / OPEN CALL */
-  .artists { background: var(--bg-alt); }
-  .artists .grid-2 { margin-bottom: 80px; }
-  .artists-title { font-family: var(--mono-head); font-weight: 700; font-size: clamp(32px, 4vw, 56px); line-height: 1.02; margin: 0 0 24px; text-wrap: pretty; }
-  .artists-desc { font-size: 15px; line-height: 1.7; color: var(--muted-1); max-width: 480px; margin-bottom: 28px; }
-  .rules { display: flex; flex-direction: column; justify-content: center; gap: 20px; font-size: 13px; line-height: 1.6; color: var(--muted-3); }
-  .rules li { display: flex; gap: 16px; list-style: none; }
-  .rules li .num { font-family: var(--mono-head); font-weight: 700; color: var(--accent); flex-shrink: 0; }
-  .rules { margin: 0; padding: 0; }
+    .nav-logo span {
+      color: var(--accent);
+    }
 
-  /* FAQ */
-  .faq-label { font-size: 12px; letter-spacing: 2px; color: var(--muted-4); margin-bottom: 20px; }
-  .faq-list { display: flex; flex-direction: column; max-width: 820px; }
-  .faq-header { font-family: var(--mono-head-zh); font-weight: 700; font-size: 13px; letter-spacing: 1px; color: var(--accent); margin-top: 36px; margin-bottom: 8px; }
-  .faq-item { border-bottom: 1px solid var(--line-soft); }
-  .faq-q {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 20px 0;
-    cursor: pointer;
-    gap: 16px;
-    background: none;
-    border: none;
-    text-align: left;
-    color: inherit;
-    font-family: var(--mono-head-zh);
-    font-weight: 700;
-    font-size: 16px;
-  }
-  .faq-q .symbol { font-size: 20px; color: var(--accent); flex-shrink: 0; font-family: var(--mono-head); }
-  .faq-a { padding: 0 0 22px; font-size: 14px; line-height: 1.7; color: var(--muted-3); max-width: 640px; display: none; }
-  .faq-item.open .faq-a { display: block; }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
 
-  /* FOOTER */
-  .footer { padding: 70px 32px 40px; display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 40px; border-bottom: none; }
-  .footer-logo { font-family: var(--mono-head); font-weight: 700; font-size: 26px; margin-bottom: 12px; }
-  .footer-tag { font-size: 13px; line-height: 1.6; color: var(--muted-4); max-width: 320px; }
-  .footer-col-label { font-size: 11px; letter-spacing: 2px; color: var(--muted-4); margin-bottom: 14px; }
-  .footer-links { display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
-  .footer-links a { color: inherit; }
-  .footer-contact { display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--muted-1); }
-  .footer-bottom {
-    padding: 20px 32px;
-    border-top: 1px solid var(--line-soft);
-    font-size: 11px;
-    letter-spacing: 1px;
-    color: var(--muted-5);
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+    .nav-links a {
+      color: inherit;
+    }
 
-  @media (max-width: 800px) {
-    .nav { padding: 14px 20px; flex-wrap: wrap; }
-    .nav-links { display: none; }
-    .hero { padding: 60px 20px 70px; }
-    section { padding: 64px 20px; }
-    .grid-2, .footer { grid-template-columns: 1fr; gap: 40px; }
-    .about-images { align-self: auto; }
-    .footer { padding: 50px 20px 30px; }
-    .footer-bottom { padding: 16px 20px; }
-  }
-</style>
+    .nav-cta {
+      border: 1px solid var(--fg);
+      padding: 8px 16px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: inherit;
+      white-space: nowrap;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      padding: 90px 32px 100px;
+      border-bottom: 1px solid var(--line);
+      background-image: repeating-linear-gradient(0deg, oklch(0.96 0.005 90 / 0.03) 0px, transparent 1px, transparent 3px);
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: var(--mono-head);
+      font-weight: 700;
+      font-size: clamp(52px, 11vw, 160px);
+      line-height: 0.82;
+      letter-spacing: -2px;
+      max-width: 1100px;
+      text-wrap: pretty;
+      margin: 0;
+    }
+
+    .hero-desc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 40px;
+      margin-top: 36px;
+      max-width: 640px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted-2);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    /* TICKER */
+    .ticker {
+      background: var(--accent);
+      color: var(--bg);
+      padding: 10px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .ticker-track {
+      display: inline-block;
+      white-space: nowrap;
+      font-family: var(--mono-head);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 2px;
+      animation: bside-marquee 18s linear infinite;
+    }
+
+    /* SECTION SHELL */
+    section {
+      padding: 100px 32px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    /* ABOUT */
+    .about-title {
+      font-family: var(--mono-head);
+      font-weight: 700;
+      font-size: clamp(32px, 4vw, 56px);
+      line-height: 1.02;
+      margin: 0 0 28px;
+      text-wrap: pretty;
+    }
+
+    .about-body {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted-1);
+      max-width: 520px;
+    }
+
+    .about-body .highlight {
+      color: var(--fg);
+      font-weight: 700;
+    }
+
+    .about-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-self: start;
+    }
+
+    .img-slot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 12px;
+      background: color-mix(in oklch, var(--fg) 6%, transparent);
+      border: 1px dashed var(--line);
+      color: var(--muted-4);
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      line-height: 1.5;
+    }
+
+    .img-slot--tall {
+      aspect-ratio: 3 / 4;
+      grid-row: span 2;
+    }
+
+    .img-slot--square {
+      aspect-ratio: 1 / 1;
+    }
+
+    /* EVENT */
+    .event-title {
+      font-family: var(--mono-head);
+      font-weight: 700;
+      font-size: clamp(30px, 3.6vw, 46px);
+      line-height: 1.05;
+      margin: 0 0 24px;
+      text-wrap: pretty;
+    }
+
+    .event-facts {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px 24px;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .event-facts dt {
+      color: var(--muted-4);
+      letter-spacing: 1px;
+    }
+
+    .event-facts dd {
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .event-facts dd.accent {
+      color: var(--accent);
+    }
+
+    .lineup-label {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--muted-4);
+      margin-bottom: 16px;
+    }
+
+    .lineup-box {
+      border: 1px dashed var(--line);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .lineup-box strong {
+      display: block;
+      font-family: var(--mono-head);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--accent);
+    }
+
+    .lineup-box span {
+      display: block;
+      font-size: 13px;
+      color: var(--muted-4);
+      margin-top: 10px;
+    }
+
+    /* ARTISTS / OPEN CALL */
+    .artists {
+      background: var(--bg-alt);
+    }
+
+    .artists .grid-2 {
+      margin-bottom: 80px;
+    }
+
+    .artists-title {
+      font-family: var(--mono-head);
+      font-weight: 700;
+      font-size: clamp(32px, 4vw, 56px);
+      line-height: 1.02;
+      margin: 0 0 24px;
+      text-wrap: pretty;
+    }
+
+    .artists-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted-1);
+      max-width: 480px;
+      margin-bottom: 28px;
+    }
+
+    .rules {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted-3);
+    }
+
+    .rules li {
+      display: flex;
+      gap: 16px;
+      list-style: none;
+    }
+
+    .rules li .num {
+      font-family: var(--mono-head);
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .rules {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* FAQ */
+    .faq-label {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--muted-4);
+      margin-bottom: 20px;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      max-width: 820px;
+    }
+
+    .faq-header {
+      font-family: var(--mono-head-zh);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-top: 36px;
+      margin-bottom: 8px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 20px 0;
+      cursor: pointer;
+      gap: 16px;
+      background: none;
+      border: none;
+      text-align: left;
+      color: inherit;
+      font-family: var(--mono-head-zh);
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .faq-q .symbol {
+      font-size: 20px;
+      color: var(--accent);
+      flex-shrink: 0;
+      font-family: var(--mono-head);
+    }
+
+    .faq-a {
+      padding: 0 0 22px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--muted-3);
+      max-width: 640px;
+      display: none;
+    }
+
+    .faq-item.open .faq-a {
+      display: block;
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 70px 32px 40px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 40px;
+      border-bottom: none;
+    }
+
+    .footer-logo {
+      font-family: var(--mono-head);
+      font-weight: 700;
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+
+    .footer-tag {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted-4);
+      max-width: 320px;
+    }
+
+    .footer-col-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--muted-4);
+      margin-bottom: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .footer-links a {
+      color: inherit;
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--muted-1);
+    }
+
+    .footer-bottom {
+      padding: 20px 32px;
+      border-top: 1px solid var(--line-soft);
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--muted-5);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    @media (max-width: 800px) {
+      .nav {
+        padding: 14px 20px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 60px 20px 70px;
+      }
+
+      section {
+        padding: 64px 20px;
+      }
+
+      .grid-2,
+      .footer {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .about-images {
+        align-self: auto;
+      }
+
+      .footer {
+        padding: 50px 20px 30px;
+      }
+
+      .footer-bottom {
+        padding: 16px 20px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-logo">BAC<span>//</span></div>
-  <div class="nav-links">
-    <a href="#about">MANIFESTO</a>
-    <a href="#event">NEXT UP</a>
-    <a href="#artists">OPEN CALL</a>
-  </div>
-  <a href="#event" class="nav-cta">NEXT UP</a>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="eyebrow">WHERE ARTISTS FIND THEIR FIRST COLLECTORS</div>
-  <h1 class="hero-title">B-SIDE<br>ART CLUB</h1>
-  <div class="hero-desc">
-    <div>A weekend event. Free entry for guests, zero application fees for artists. Featuring a dynamic mix of emerging, established artists and independent creators. Paintings, prints with price tag — sold loud in a room filled with great vibes.</div>
-  </div>
-  <div class="hero-actions">
-    <a href="#event" class="btn btn-solid">SEE NEXT MARKET →</a>
-    <a href="#artists" class="btn">SUBMIT WORK</a>
-  </div>
-</div>
-
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-track">FREE ENTRY &nbsp;·&nbsp; NO GATEKEEPING &nbsp;·&nbsp; ALL MEDIUMS WELCOME &nbsp;·&nbsp; CASH &amp; CARD &nbsp;·&nbsp; FREE ENTRY &nbsp;·&nbsp; NO GATEKEEPING &nbsp;·&nbsp; ALL MEDIUMS WELCOME &nbsp;·&nbsp; CASH &amp; CARD &nbsp;·</div>
-</div>
-
-<!-- ABOUT / MANIFESTO -->
-<section id="about" class="grid-2">
-  <div>
-    <div class="section-label">01 / MANIFESTO</div>
-    <h2 class="about-title">WE'RE NOT A GALLERY. WE'RE A ROOM FULL OF PEOPLE WHO MAKE THINGS.</h2>
-    <div class="about-body">
-      <div>B-Side started because the front-of-house scene left too much on the cutting room floor. No submission fees that price out broke artists. No juried committee deciding what counts as "art." No white cube silence.</div>
-      <div>Every market runs in a raw space — warehouses, basements, whatever venue will let us turn the sound system up. Vendors bring the work. We bring the crowd, the speakers, and a bar.</div>
-      <div class="highlight">Free to attend. Join us, it's gonna be fun!</div>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">BAC<span>//</span></div>
+    <div class="nav-links">
+      <a href="#about">MANIFESTO</a>
+      <a href="#event">NEXT UP</a>
+      <a href="#artists">OPEN CALL</a>
     </div>
-  </div>
-  <div class="about-images">
-    <div class="img-slot img-slot--tall">市集現場，遠景</div>
-    <div class="img-slot img-slot--square">藝術家與人群</div>
-    <div class="img-slot img-slot--square">攤位細節 / 刊物桌</div>
-  </div>
-</section>
+    <a href="#event" class="nav-cta">NEXT UP</a>
+  </nav>
 
-<!-- NEXT EVENT -->
-<section id="event">
-  <div class="section-label">02 / NEXT UP</div>
-  <div class="grid-2" style="grid-template-columns: 1.1fr 1fr;">
-    <div>
-      <h2 class="event-title">DECEMBER MARKET</h2>
-      <dl class="event-facts">
-        <dt>DATE</dt><dd>DEC 5 – 6, 2026</dd>
-        <dt>DOORS</dt><dd>[TIME TBA]</dd>
-        <dt>VENUE</dt><dd>濕地 | venue 3F</dd>
-        <dt>ENTRY</dt><dd class="accent">FREE — NO RSVP REQUIRED</dd>
-      </dl>
-    </div>
-    <div>
-      <div class="lineup-label">LINEUP</div>
-      <div class="lineup-box">
-        <strong>LAUNCHING SOON</strong>
-        <span>Artist lineup drops closer to the date.</span>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">WHERE ARTISTS FIND THEIR FIRST COLLECTORS</div>
+    <h1 class="hero-title">B-SIDE<br>ART CLUB</h1>
+    <div class="hero-desc">
+      <div>A weekend event. Free entry for guests, zero application fees for artists. Featuring a dynamic mix of
+        emerging, established artists and independent creators.
+      </div>
+      <div class="hero-actions">
+        <a href="#event" class="btn btn-solid">SEE NEXT EVENT →</a>
+        <!-- <a href="#artists" class="btn">SUBMIT WORK</a> -->
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ARTIST / OPEN CALL -->
-<section id="artists" class="artists">
-  <div class="section-label">03 / SELL WITH US</div>
-  <div class="grid-2">
+    <!-- TICKER
+  <div class="ticker">
+    <div class="ticker-track">FREE ENTRY &nbsp;·&nbsp; NO GATEKEEPING &nbsp;·&nbsp; ALL MEDIUMS WELCOME &nbsp;·&nbsp;
+      CASH &amp; CARD &nbsp;·&nbsp; FREE ENTRY &nbsp;·&nbsp; NO GATEKEEPING &nbsp;·&nbsp; ALL MEDIUMS WELCOME
+      &nbsp;·&nbsp; CASH &amp; CARD &nbsp;·</div>
+  </div> -->
+
+    <!-- ABOUT / MANIFESTO
+  <section id="about" class="grid-2">
     <div>
-      <h2 class="artists-title">OPEN CALL IS NOT OPEN YET.</h2>
-      <div class="artists-desc">The call for the December event hasn't launched. Drop your email and we'll ping you the second it opens.</div>
-      <a href="#" class="btn btn-accent">GET NOTIFIED WHEN IT OPENS →</a>
+      <div class="section-label">01 / MANIFESTO</div>
+      <h2 class="about-title">WE'RE NOT A GALLERY. WE'RE A ROOM FULL OF PEOPLE WHO MAKE THINGS.</h2>
+      <div class="about-body">
+        <div>B-Side started because the front-of-house scene left too much on the cutting room floor. No submission fees
+          that price out broke artists. No juried committee deciding what counts as "art." No white cube silence.</div>
+        <div>Every market runs in a raw space — warehouses, basements, whatever venue will let us turn the sound system
+          up. Vendors bring the work. We bring the crowd, the speakers, and a bar.</div>
+        <div class="highlight">Free to attend. Join us, it's gonna be fun!</div>
+      </div>
     </div>
-    <ul class="rules">
-      <li><div class="num">01</div><div>Submit up to 10 small-format (max. A2) for table display and up to 10 artworks for wall hanging (no size limit).</div></li>
-      <li><div class="num">02</div><div>Your art, your price. You set 100% of your pricing.</div></li>
-      <li><div class="num">03</div><div>Every applicant will hear back.</div></li>
-      <li><div class="num">04</div><div>Accepted artists get a spot in the lineup and 60% of net sales. The remaining 40% covers production and growing the market.</div></li>
-    </ul>
-  </div>
-
-  <div class="faq-label">ARTIST FAQ 藝術家常見問題</div>
-  <div class="faq-list" id="faq-list"></div>
-</section>
-
-<!-- FOOTER -->
-<div class="footer">
-  <div>
-    <div class="footer-logo">BAC<span style="color: var(--accent);">//</span></div>
-    <div class="footer-tag">An alternative art fair. Free entry, no gatekeeping. Artists sold loud.</div>
-  </div>
-  <div>
-    <div class="footer-col-label">FOLLOW</div>
-    <div class="footer-links">
-      <a href="#">Instagram</a>
+    <div class="about-images">
+      <div class="img-slot img-slot--tall">市集現場，遠景</div>
+      <div class="img-slot img-slot--square">藝術家與人群</div>
+      <div class="img-slot img-slot--square">攤位細節 / 刊物桌</div>
     </div>
-  </div>
-  <div>
-    <div class="footer-col-label">CONTACT</div>
-    <div class="footer-contact">
-      <div>hello@bsideartclub.club</div>
-      <div>Based in Taipei, Taiwan</div>
+  </section> -->
+
+    <!-- NEXT EVENT -->
+    <section id="event">
+      <div class="section-label">01 / NEXT UP</div>
+      <div class="grid-2" style="grid-template-columns: 1.1fr 1fr;">
+        <div>
+          <h2 class="event-title">DECEMBER MARKET</h2>
+          <dl class="event-facts">
+            <dt>DATE</dt>
+            <dd>DEC 4 – 6, 2026</dd>
+            <dt>VENUE</dt>
+            <dd><a href="https://maps.app.goo.gl/T7mLmWGaYgYKjQZj6" target="_blank" rel="noopener noreferrer">濕地 | venue
+                3F</a></dd>
+            <dt>ENTRY</dt>
+            <dd class="accent">FREE — NO RSVP REQUIRED</dd>
+          </dl>
+        </div>
+        <!-- <div>
+        <div class="lineup-label">LINEUP</div>
+        <div class="lineup-box">
+          <strong>LAUNCHING SOON</strong>
+          <span>Artist lineup drops closer to the date.</span>
+        </div>
+      </div> -->
+      </div>
+    </section>
+
+    <!-- ARTIST / OPEN CALL
+  <section id="artists" class="artists">
+    <div class="section-label">03 / SELL WITH US</div>
+    <div class="grid-2">
+      <div>
+        <h2 class="artists-title">OPEN CALL IS NOT OPEN YET.</h2>
+        <div class="artists-desc">The call for the December event hasn't launched. Drop your email and we'll ping you
+          the second it opens.</div>
+        <a href="#" class="btn btn-accent">GET NOTIFIED WHEN IT OPENS →</a>
+      </div>
+      <ul class="rules">
+        <li>
+          <div class="num">01</div>
+          <div>Submit up to 10 small-format (max. A2) for table display and up to 10 artworks for wall hanging (no size
+            limit).</div>
+        </li>
+        <li>
+          <div class="num">02</div>
+          <div>Your art, your price. You set 100% of your pricing.</div>
+        </li>
+        <li>
+          <div class="num">03</div>
+          <div>Every applicant will hear back.</div>
+        </li>
+        <li>
+          <div class="num">04</div>
+          <div>Accepted artists get a spot in the lineup and 60% of net sales. The remaining 40% covers production and
+            growing the market.</div>
+        </li>
+      </ul>
     </div>
-  </div>
-</div>
-<div class="footer-bottom">
-  <div>© 2026 B-SIDE ART CLUB</div>
-  <div>NO COMMISSION. NO COMMITTEE. JUST WORK.</div>
-</div>
 
-<script>
-  var faq = [
-    { type: 'header', text: '公開徵件' },
-    { type: 'question', q: '藝術家最多可以投件多少作品？', a: '桌上展示作品最多可提交 10 件小尺寸、未裝框的作品（最大 A2 尺寸）；牆面作品最多可提交 10 件（無尺寸限制）。因展覽空間有限，BAC團隊將決定每位藝術家最終展出的作品總數量。', open: true },
-    { type: 'question', q: '公開徵件結果何時公布？', a: '徵件將於 10 月 8 日（星期四）下午 6 點截止，結果將於 11 月 6 日（星期五）(前)公布。' },
-    { type: 'question', q: '申請公開徵件需要費用嗎？', a: '報名費用為 10 歐元（學生免費），此費用用於聘請專業策展團隊，以提升參展作品的整體品質。' },
-    { type: 'question', q: '抽成比例如何計算？', a: '藝術家可獲得淨售價的 60%，B-Side Art Club則保留 40% 淨抽成，用於活動籌辦成本及推動市場發展。' },
-    { type: 'question', q: '如果我沒收到回覆，是否代表未獲錄取？', a: '我們會通知所有申請者。若在結果公布後仍未收到通知，請來信至 info@bsideart.club 與我們聯繫。' },
-    { type: 'question', q: '我可以投件上次 B-Side Art Club 未售出的作品嗎？', a: '可以，但如果只提交未售出的舊作，被婉拒的機率較高。非常歡迎你附上新的創作！' },
-    { type: 'question', q: '未獲選的藝術家會收到建議與回饋嗎？', a: '未獲選的藝術家會收到電子郵件通知，但我們無法提供個別的評語與建議，敬請見諒。' },
-    { type: 'header', text: '入選藝術家' },
-    { type: 'question', q: '如果我獲選，可以帶當初送件的所有作品嗎？', a: '不行。獲選後，你會收到BAC團隊寄發的電子郵件，裡面會詳細說明在佈展日需要攜帶哪些作品前來。' },
-    { type: 'question', q: '什麼是「開放式庫房」（Open Storage）？', a: '這是一個專門存放未現場展示作品的區域，若顧客有興趣，我們會拿出來展示。現場一有空間，我們就會輪播換展。在市集舉辦期間，我們會盡可能掛出與展示所有入選的作品。' },
-    { type: 'question', q: '參加B-Side Art Club 需要簽署合約嗎？', a: '是的，你會收到包含所有規範、權責、活動細節、佈撤展時間、保險表單、標籤表單以及付款資訊的電子郵件合約。' },
-    { type: 'question', q: '參加市集需要繳交參展費嗎？', a: '是的，入選藝術家的市集參展費用為 40 歐元（學生為 20 歐元）。此費用須在線上簽署合約時預先支付。' },
-    { type: 'question', q: '所有參加 B-Side Art Club 的藝術家都會在官方管道上曝光嗎？', a: '不會。由於每場活動參展藝術家數量眾多，B-Side Art Club 無法保證刊登每位藝術家的作品。我們僅會精選約 20 位不同藝術家的作品進行展示，以呈現本次市集作品的多樣性。' },
-    { type: 'header', text: '佈展與撤展' },
-    { type: 'question', q: '誰負責作品的佈展與撤展？', a: '藝術家須自行負責作品的佈展與撤展，並請自備工具。若你無法親自佈展，可付費 50 歐元預約佈展服務。' },
-    { type: 'question', q: '我應該在什麼時候進行佈展與撤展？', a: '佈展時間為開幕前 1 天，即 12 月 4 日（星期五）；撤展時間為 12 月 6 日（星期日）。我們將提前向參展者發送具體的時間表。' },
-    { type: 'question', q: '佈展時我需要帶些什麼？', a: '你應攜帶正確安裝作品所需的全部工具與材料。B-Side Art Club 不負責安裝工作，但如有需要，我們會出借部分工具協助。對於放在桌上展示的紙本作品，藝術家應準備透明文件套（透明資料夾）保護，避免顧客直接觸摸。此外，藝術家須列印並在每件作品上貼上 2 張價格標籤，並填妥所有相關資訊。' },
-    { type: 'question', q: '我要從哪裡取得標籤？', a: '我們會寄送 Excel 檔案給你，請使用電腦填寫價格標籤表格所需的資訊（僅限電腦填寫）。' },
-    { type: 'question', q: '如果我無法在指定日期來佈展或撤展怎麼辦？', a: '如果你無法親自前來，可以委託朋友或代理人協助處理。該人員須攜帶由藝術家簽署的簡易授權書。若因安裝不當導致作品損壞或影響他人作品，責任完全由藝術家承擔。若你（或你的代理人）無法自行佈展，可以付費 50 歐元預約「佈展服務」。' },
-    { type: 'question', q: '在佈展和活動期間，作品有保險保障嗎？', a: '作品在展覽、佈展與撤展期間享有部分保險保障。為使作品獲得保險理賠資格，藝術家必須預先透過電子郵件發送包含所有作品資料（展名、媒材細節及價格）的表單。若發生遺失、偷竊，B-Side Art Club 概不負責。若遭遇搶劫、火災或水災，保險將支付材料、裱框及修復費用，但不涵蓋作品的完整市價。若顧客打破作品，將由該顧客的保險理賠。若因安裝不當造成損毀，負責佈展的藝術家須承擔潛在的損害責任。' },
-    { type: 'header', text: '活動期間' },
-    { type: 'question', q: '市集舉辦期間我需要全程在場嗎？', a: '不需要，但非常歡迎你志願提供 3 小時的現場協助。' },
-    { type: 'question', q: '參觀者需要入場費嗎？', a: '市集採取「自由捐款」入場制，以支持這場大型藝術盛會的順利運作。建議捐款金額為 10 歐元起。' },
-    { type: 'header', text: '付款流程' },
-    { type: 'question', q: '藝術家何時會收到款項？', a: 'B-Side Art Club 團隊將於活動結束後 30 天內撥款給所有藝術家，並會針對你售出的作品提供結算銷帳單。注意事項！只有在 B-Side Art Club 收到藝術家提供之完整正確資訊（包含稅號、營業稅/增值稅比例資訊、稅務居住地、銀行帳戶資料以及簽署完成的合約）的前提下，才能在此期限內完成付款。在 30 天期限結束前，請勿催問團隊何時能收到款項。' }
-  ];
+    <div class="faq-label">ARTIST FAQ 藝術家常見問題</div>
+    <div class="faq-list" id="faq-list"></div>
+  </section> -->
 
-  var listEl = document.getElementById('faq-list');
+    <!-- FOOTER -->
+    <div class="footer">
+      <div>
+        <div class="footer-logo">BAC<span style="color: var(--accent);">//</span></div>
+        <div class="footer-tag">An alternative art fair. Free entry, no gatekeeping. Artists sold loud.</div>
+      </div>
+      <div>
+        <div class="footer-col-label">FOLLOW</div>
+        <div class="footer-links">
+          <a href="#">Instagram</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-label">CONTACT</div>
+        <div class="footer-contact">
+          <div>hello@bsideartclub.club</div>
+          <div>Based in Taipei, Taiwan</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 B-SIDE ART CLUB</div>
+      <div>NO COMMISSION. NO COMMITTEE. JUST WORK.</div>
+    </div>
 
-  function render() {
-    listEl.innerHTML = '';
-    faq.forEach(function (item, i) {
-      if (item.type === 'header') {
-        var h = document.createElement('div');
-        h.className = 'faq-header';
-        h.textContent = item.text;
-        listEl.appendChild(h);
-        return;
+    <script>
+      var faq = [
+        { type: 'header', text: '公開徵件' },
+        { type: 'question', q: '藝術家最多可以投件多少作品？', a: '桌上展示作品最多可提交 10 件小尺寸、未裝框的作品（最大 A2 尺寸）；牆面作品最多可提交 10 件（無尺寸限制）。因展覽空間有限，BAC團隊將決定每位藝術家最終展出的作品總數量。', open: true },
+        { type: 'question', q: '公開徵件結果何時公布？', a: '徵件將於 10 月 8 日（星期四）下午 6 點截止，結果將於 11 月 6 日（星期五）(前)公布。' },
+        { type: 'question', q: '申請公開徵件需要費用嗎？', a: '報名費用為 10 歐元（學生免費），此費用用於聘請專業策展團隊，以提升參展作品的整體品質。' },
+        { type: 'question', q: '抽成比例如何計算？', a: '藝術家可獲得淨售價的 60%，B-Side Art Club則保留 40% 淨抽成，用於活動籌辦成本及推動市場發展。' },
+        { type: 'question', q: '如果我沒收到回覆，是否代表未獲錄取？', a: '我們會通知所有申請者。若在結果公布後仍未收到通知，請來信至 info@bsideart.club 與我們聯繫。' },
+        { type: 'question', q: '我可以投件上次 B-Side Art Club 未售出的作品嗎？', a: '可以，但如果只提交未售出的舊作，被婉拒的機率較高。非常歡迎你附上新的創作！' },
+        { type: 'question', q: '未獲選的藝術家會收到建議與回饋嗎？', a: '未獲選的藝術家會收到電子郵件通知，但我們無法提供個別的評語與建議，敬請見諒。' },
+        { type: 'header', text: '入選藝術家' },
+        { type: 'question', q: '如果我獲選，可以帶當初送件的所有作品嗎？', a: '不行。獲選後，你會收到BAC團隊寄發的電子郵件，裡面會詳細說明在佈展日需要攜帶哪些作品前來。' },
+        { type: 'question', q: '什麼是「開放式庫房」（Open Storage）？', a: '這是一個專門存放未現場展示作品的區域，若顧客有興趣，我們會拿出來展示。現場一有空間，我們就會輪播換展。在市集舉辦期間，我們會盡可能掛出與展示所有入選的作品。' },
+        { type: 'question', q: '參加B-Side Art Club 需要簽署合約嗎？', a: '是的，你會收到包含所有規範、權責、活動細節、佈撤展時間、保險表單、標籤表單以及付款資訊的電子郵件合約。' },
+        { type: 'question', q: '參加市集需要繳交參展費嗎？', a: '是的，入選藝術家的市集參展費用為 40 歐元（學生為 20 歐元）。此費用須在線上簽署合約時預先支付。' },
+        { type: 'question', q: '所有參加 B-Side Art Club 的藝術家都會在官方管道上曝光嗎？', a: '不會。由於每場活動參展藝術家數量眾多，B-Side Art Club 無法保證刊登每位藝術家的作品。我們僅會精選約 20 位不同藝術家的作品進行展示，以呈現本次市集作品的多樣性。' },
+        { type: 'header', text: '佈展與撤展' },
+        { type: 'question', q: '誰負責作品的佈展與撤展？', a: '藝術家須自行負責作品的佈展與撤展，並請自備工具。若你無法親自佈展，可付費 50 歐元預約佈展服務。' },
+        { type: 'question', q: '我應該在什麼時候進行佈展與撤展？', a: '佈展時間為開幕前 1 天，即 12 月 4 日（星期五）；撤展時間為 12 月 6 日（星期日）。我們將提前向參展者發送具體的時間表。' },
+        { type: 'question', q: '佈展時我需要帶些什麼？', a: '你應攜帶正確安裝作品所需的全部工具與材料。B-Side Art Club 不負責安裝工作，但如有需要，我們會出借部分工具協助。對於放在桌上展示的紙本作品，藝術家應準備透明文件套（透明資料夾）保護，避免顧客直接觸摸。此外，藝術家須列印並在每件作品上貼上 2 張價格標籤，並填妥所有相關資訊。' },
+        { type: 'question', q: '我要從哪裡取得標籤？', a: '我們會寄送 Excel 檔案給你，請使用電腦填寫價格標籤表格所需的資訊（僅限電腦填寫）。' },
+        { type: 'question', q: '如果我無法在指定日期來佈展或撤展怎麼辦？', a: '如果你無法親自前來，可以委託朋友或代理人協助處理。該人員須攜帶由藝術家簽署的簡易授權書。若因安裝不當導致作品損壞或影響他人作品，責任完全由藝術家承擔。若你（或你的代理人）無法自行佈展，可以付費 50 歐元預約「佈展服務」。' },
+        { type: 'question', q: '在佈展和活動期間，作品有保險保障嗎？', a: '作品在展覽、佈展與撤展期間享有部分保險保障。為使作品獲得保險理賠資格，藝術家必須預先透過電子郵件發送包含所有作品資料（展名、媒材細節及價格）的表單。若發生遺失、偷竊，B-Side Art Club 概不負責。若遭遇搶劫、火災或水災，保險將支付材料、裱框及修復費用，但不涵蓋作品的完整市價。若顧客打破作品，將由該顧客的保險理賠。若因安裝不當造成損毀，負責佈展的藝術家須承擔潛在的損害責任。' },
+        { type: 'header', text: '活動期間' },
+        { type: 'question', q: '市集舉辦期間我需要全程在場嗎？', a: '不需要，但非常歡迎你志願提供 3 小時的現場協助。' },
+        { type: 'question', q: '參觀者需要入場費嗎？', a: '市集採取「自由捐款」入場制，以支持這場大型藝術盛會的順利運作。建議捐款金額為 10 歐元起。' },
+        { type: 'header', text: '付款流程' },
+        { type: 'question', q: '藝術家何時會收到款項？', a: 'B-Side Art Club 團隊將於活動結束後 30 天內撥款給所有藝術家，並會針對你售出的作品提供結算銷帳單。注意事項！只有在 B-Side Art Club 收到藝術家提供之完整正確資訊（包含稅號、營業稅/增值稅比例資訊、稅務居住地、銀行帳戶資料以及簽署完成的合約）的前提下，才能在此期限內完成付款。在 30 天期限結束前，請勿催問團隊何時能收到款項。' }
+      ];
+
+      var listEl = document.getElementById('faq-list');
+
+      function render() {
+        listEl.innerHTML = '';
+        faq.forEach(function (item, i) {
+          if (item.type === 'header') {
+            var h = document.createElement('div');
+            h.className = 'faq-header';
+            h.textContent = item.text;
+            listEl.appendChild(h);
+            return;
+          }
+          var wrap = document.createElement('div');
+          wrap.className = 'faq-item' + (item.open ? ' open' : '');
+
+          var btn = document.createElement('button');
+          btn.className = 'faq-q';
+          btn.setAttribute('aria-expanded', item.open ? 'true' : 'false');
+          btn.addEventListener('click', function () {
+            item.open = !item.open;
+            render();
+          });
+
+          var qText = document.createElement('div');
+          qText.textContent = item.q;
+          var symbol = document.createElement('div');
+          symbol.className = 'symbol';
+          symbol.textContent = item.open ? '−' : '+';
+
+          btn.appendChild(qText);
+          btn.appendChild(symbol);
+          wrap.appendChild(btn);
+
+          var a = document.createElement('div');
+          a.className = 'faq-a';
+          a.textContent = item.a;
+          wrap.appendChild(a);
+
+          listEl.appendChild(wrap);
+        });
       }
-      var wrap = document.createElement('div');
-      wrap.className = 'faq-item' + (item.open ? ' open' : '');
 
-      var btn = document.createElement('button');
-      btn.className = 'faq-q';
-      btn.setAttribute('aria-expanded', item.open ? 'true' : 'false');
-      btn.addEventListener('click', function () {
-        item.open = !item.open;
-        render();
-      });
-
-      var qText = document.createElement('div');
-      qText.textContent = item.q;
-      var symbol = document.createElement('div');
-      symbol.className = 'symbol';
-      symbol.textContent = item.open ? '−' : '+';
-
-      btn.appendChild(qText);
-      btn.appendChild(symbol);
-      wrap.appendChild(btn);
-
-      var a = document.createElement('div');
-      a.className = 'faq-a';
-      a.textContent = item.a;
-      wrap.appendChild(a);
-
-      listEl.appendChild(wrap);
-    });
-  }
-
-  render();
-</script>
+      render();
+    </script>
 
 </body>
+
 </html>
