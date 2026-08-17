@@ -307,6 +307,11 @@
       font-weight: 700;
     }
 
+    .event-facts dd a {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
     .event-facts dd.accent {
       color: var(--accent);
     }
@@ -639,17 +644,25 @@
       </div>
     </section>
 
-    <!-- ARTIST / OPEN CALL
-  <section id="artists" class="artists">
-    <div class="section-label">03 / SELL WITH US</div>
-    <div class="grid-2">
-      <div>
-        <h2 class="artists-title">OPEN CALL IS NOT OPEN YET.</h2>
-        <div class="artists-desc">The call for the December event hasn't launched. Drop your email and we'll ping you
-          the second it opens.</div>
-        <a href="#" class="btn btn-accent">GET NOTIFIED WHEN IT OPENS →</a>
-      </div>
-      <ul class="rules">
+    <!-- ARTIST / OPEN CALL -->
+    <section id="artists" class="artists">
+      <div class="grid-2">
+        <div>
+          <h2 class="artists-title">OPEN CALL</h2>
+          <dl class="event-facts">
+            <dt>DEADLINE</dt>
+            <dd class="accent">OCT 8th 18:00, 2026 (Taiwan Time)</dd>
+            <dt>RESULT</dt>
+            <dd class="accent">NOV 6th, 2026</dd>
+          </dl>
+          <div class="artists-desc">
+            Read our open call introduction <a href="https://pitch.com/v/open-call-c8pv72" target="_blank"
+              rel="noopener noreferrer" style="text-decoration: underline;">here</a>.
+          </div>
+          <a href="https://apply.bsideart.club" target="_blank" rel="noopener noreferrer" class="btn">APPLY
+            NOW →</a>
+        </div>
+        <!-- <ul class="rules">
         <li>
           <div class="num">01</div>
           <div>Submit up to 10 small-format (max. A2) for table display and up to 10 artworks for wall hanging (no size
@@ -668,12 +681,12 @@
           <div>Accepted artists get a spot in the lineup and 60% of net sales. The remaining 40% covers production and
             growing the market.</div>
         </li>
-      </ul>
-    </div>
+      </ul> -->
+      </div>
 
-    <div class="faq-label">ARTIST FAQ 藝術家常見問題</div>
-    <div class="faq-list" id="faq-list"></div>
-  </section> -->
+      <!-- <div class="faq-label">ARTIST FAQ 藝術家常見問題</div>
+    <div class="faq-list" id="faq-list"></div> -->
+    </section>
 
     <!-- FOOTER -->
     <div class="footer">
@@ -732,6 +745,7 @@
       var listEl = document.getElementById('faq-list');
 
       function render() {
+        if (!listEl) return;
         listEl.innerHTML = '';
         faq.forEach(function (item, i) {
           if (item.type === 'header') {
