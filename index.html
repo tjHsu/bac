@@ -12,6 +12,15 @@
     href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Roboto+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap"
     rel="stylesheet">
   <style>
+    @font-face {
+      font-family: 'Morica';
+      src: url('./morica/Morica-Regular.otf') format('opentype'),
+        url('./morica/Morica-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
       --bg: oklch(0.14 0.005 90);
       --bg-alt: oklch(0.11 0.005 90);
@@ -112,8 +121,8 @@
     }
 
     .nav-logo {
-      font-family: var(--mono-head);
-      font-weight: 700;
+      font-family: 'Morica', var(--mono-head);
+      /* font-weight: 700; */
       font-size: 18px;
       letter-spacing: 0.5px;
     }
@@ -568,7 +577,7 @@
 
   <!-- NAV -->
   <nav class="nav">
-    <div class="nav-logo">BAC<span>//</span></div>
+    <div class="nav-logo">B-Side Art Club</div>
     <!-- <div class="nav-links">
       <a href="#about">MANIFESTO</a>
       <a href="#event">NEXT UP</a>
